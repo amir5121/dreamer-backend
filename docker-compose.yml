@@ -1,0 +1,132 @@
+version: "3.8"
+
+services:
+  postgres:
+    build: ${POSTGRES_DOCKER_PATH}
+    restart: always
+    image: dreamer-postgres
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+    volumes:
+      - xe_postgres_data:/var/lib/postgresql/data
+      - ${POSTGRES_INIT_SCRIPT}:/docker-entrypoint-initdb.d/init.sh
+      - ${POSTGRES_CONFIG}:/etc/postgresql/postgresql.conf
+      # - ${POSTGRES_LOG}:/var/log/postgresql
+    networks:
+      - dreamer-web
+    env_file:
+      - .env
+
+  rabbitmq:
+    image: rabbitmq:3.8-alpine
+    restart: always
+    networks:
+      - dreamer-web
+
+  web_http:
+    build: ${DREAMER_WEB_PATH}
+    restart: always
+    image: dreamer/backend
+    user: dreamer
+    volumes:
+      - dreamer_backend_source:/srv/dreamer
+      - dreamer_backend_static:/srv/dreamer/backend_static
+    environment:
+      DB_SERVICE: postgres
+      REDIS_SERVICE: redis
+    env_file:
+      - .env
+    networks:
+      - dreamer-web
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "${WEB_HTTP_PUBLISH_PORT}:8486"
+    command: uwsgi --ini /srv/dreamer/runner/uwsgi.ini
+
+  redis:
+    image: redis:5.0-alpine
+    restart: always
+    networks:
+      - dreamer-web
+
+  celery_worker:
+    build: ${DREAMER_WEB_PATH}
+    restart: always
+    image: dreamer/backend
+    user: dreamer
+    volumes:
+      - dreamer_backend_source:/srv/dreamer
+      - dreamer_backend_static:/srv/dreamer/backend_static
+      - xe_celery_logs:/var/log/celery
+    environment:
+      DB_SERVICE: postgres
+      REDIS_SERVICE: redis
+    env_file:
+      - .env
+    networks:
+      - dreamer-web
+    depends_on:
+      - postgres
+      - redis
+
+    command: ["sh", "runner/celery_run.sh"]
+
+  celery_beat:
+    build: ${DREAMER_WEB_PATH}
+    restart: always
+    image: dreamer/backend
+    user: dreamer
+    volumes:
+      - dreamer_backend_source:/srv/dreamer
+      - dreamer_backend_static:/srv/dreamer/backend_static
+      - xe_celery_logs:/var/log/celery
+    environment:
+      DB_SERVICE: postgres
+      REDIS_SERVICE: redis
+    env_file:
+      - .env
+    networks:
+      - dreamer-web
+    depends_on:
+      - postgres
+      - redis
+    command: ["sh", "runner/celery_beat_run.sh"]
+
+networks:
+  dreamer-web:
+    name: ${NETWORK_PREFIX}-dreamer-web
+    driver: bridge
+
+volumes:
+  dreamer_backend_source:
+    name: dreamer_backend_source
+    driver: local
+    driver_opts:
+      type: non
+      device: ${DREAMER_WEB_PATH}/src
+      o: bind
+
+  dreamer_backend_static:
+    name: dreamer_backend_static
+    driver: local
+    driver_opts:
+      type: non
+      device: ${DREAMER_WEB_PATH}/src/backend_static
+      o: bind
+
+  xe_postgres_data:
+    name: xe_postgres_data
+    driver: local
+    driver_opts:
+      type: non
+      device: ${POSTGRES_DATA}
+      o: bind
+
+  xe_celery_logs:
+    name: xe_celery_logs
+    driver: local
+    driver_opts:
+      type: non
+      device: ${CELERY_LOG_PATH}
+      o: bind

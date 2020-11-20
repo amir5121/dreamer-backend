@@ -1,0 +1,8 @@
+src/venv/
+*local_settings.py
+*.idea
+*__pycache__*
+.env
+*uwsgi.log
+src/runner/logs/*
+src/celerybeat-schedule
