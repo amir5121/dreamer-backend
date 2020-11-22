@@ -7,3 +7,4 @@ uwsgi
 django-cors-headers
 django-redis
 celery
+djangorestframework-simplejwt

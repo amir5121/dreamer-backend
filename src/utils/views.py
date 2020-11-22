@@ -9,9 +9,26 @@ from rest_framework.parsers import MultiPartParser, FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import ScopedRateThrottle
 
+from user.serializers import UserSelfSerializer
 from utils.dreamer_response import DreamerResponse
 from utils.rest_validation import DreamerValidationError
 from utils.serializers import UploadSerializer
+
+
+class InitialConfigView(views.APIView):
+
+    def get(self, request, *args, **kwargs):
+        result = {
+            "self": None
+        }
+        if request.user.is_authenticated:
+            result.update(
+                {
+                    "self": UserSelfSerializer(instance=request.user).data
+
+                }
+            )
+        return DreamerResponse(data=result).toJSONResponse()
 
 
 class FileUploadView(views.APIView):
@@ -33,10 +50,6 @@ class FileUploadView(views.APIView):
                 message=_("File is too large"),
             )
 
-        # elif not mimetypes.guess_type(file.name)[0].startswith("image"):
-        #     raise DreamerValidationError(
-        #         message_code="invalid_file", message=_("Uploaded file has the wrong format")
-        #     )
         else:
             ext = file.name.split(".")[-1]
             file_path = os.path.join('temp', f"{uuid1()}.{ext}")

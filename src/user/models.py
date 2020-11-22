@@ -29,7 +29,7 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
 
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = []
     USERNAME_FIELD = 'email'
 
     objects = DreamerUserManager()

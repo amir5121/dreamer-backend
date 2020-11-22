@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
     'djoser',
     'user',
     'utils',
@@ -114,9 +113,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'backend_static')
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'utils.paginator.DreamerPaginator',
     'PAGE_SIZE': 100,
@@ -124,6 +121,18 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "file_upload_throttle": "100/day",
     },
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+}
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+DJOSER = {
+    'SERIALIZERS': {
+        "current_user": "user.serializers.UserSelfSerializer"
+    },
+    "HIDE_USERS": True
 }
 
 CACHE_DEFAULT_TIME_OUT = 3600
@@ -135,9 +144,9 @@ if os.environ.get('IN_DOCKER'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['XE_CURRENCY_DB_NAME'],
-            'USER': os.environ['XE_CURRENCY_DB_USER'],
-            'PASSWORD': os.environ['XE_CURRENCY_DB_PASS'],
+            'NAME': os.environ['DREAMER_DB_NAME'],
+            'USER': os.environ['DREAMER_DB_USER'],
+            'PASSWORD': os.environ['DREAMER_DB_PASS'],
             'PORT': os.environ['DB_PORT'],
             'HOST': os.environ['DB_SERVICE'],
         }
