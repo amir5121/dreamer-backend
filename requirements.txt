@@ -9,3 +9,5 @@ django-redis
 celery
 djangorestframework-simplejwt
 django-model-utils
+django-better-admin-arrayfield
+django-filter

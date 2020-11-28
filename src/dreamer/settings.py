@@ -35,8 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_better_admin_arrayfield',
     'corsheaders',
     'rest_framework',
+    'django_filters',
     'djoser',
     'user',
     'utils',
@@ -119,6 +121,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'utils.paginator.DreamerPaginator',
     'PAGE_SIZE': 100,
     "EXCEPTION_HANDLER": "utils.rest_validation.dreamer_exception_handler",
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_THROTTLE_RATES": {
         "file_upload_throttle": "100/day",
     },

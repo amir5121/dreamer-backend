@@ -1,8 +1,8 @@
 import uuid
 
 from django.contrib.auth import get_user_model
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django_better_admin_arrayfield.models.fields import ArrayField
 from model_utils import Choices
 from model_utils.fields import StatusField
 from model_utils.models import TimeStampedModel, SoftDeletableModel

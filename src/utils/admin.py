@@ -1,7 +1,8 @@
 from django.contrib import admin
+from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
 
-class DreamerAdmin(admin.ModelAdmin):
+class DreamerAdmin(admin.ModelAdmin, DynamicArrayMixin):
     def get_queryset(self, request):
         qs = self.model.all_objects.get_queryset()
         ordering = self.get_ordering(request)
