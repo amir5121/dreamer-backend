@@ -22,3 +22,10 @@ class UserSelfSerializer(SerializerFileMixin, serializers.ModelSerializer):
             "username",
             "date_joined"
         ]
+
+
+class UserMinimalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'username']
+        read_only_fields = fields.copy()
