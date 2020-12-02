@@ -14,3 +14,10 @@ class Post(TimeStampedModel, SoftDeletableModel):
     status = StatusField()
     text = ArrayField(models.TextField())
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    class Meta:
+        ordering = ['-created']
+
+    @property
+    def is_multi_text(self):
+        return len(self.text) > 1

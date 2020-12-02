@@ -2,6 +2,7 @@ from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import exceptions, status, serializers
 from rest_framework.exceptions import Throttled
+from rest_framework_simplejwt.exceptions import InvalidToken
 
 
 class DreamerValidationError(exceptions.APIException):
@@ -104,6 +105,14 @@ def dreamer_exception_handler(exc, context):
                     "message"
                 ] = f"{_('You have reached your request limit please try in')} {time} {_('second')}"
             response.data["message_code"] = "unknown"
+
+        if isinstance(exc, InvalidToken):
+            response.data["message"] = exc.default_detail
+            response.data["message_code"] = exc.default_code
         if "status" not in response.data:
             response.data["status"] = "error"
+        if "message" not in response.data:
+            response.data["message"] = "Something went wrong...\n" + str(exc)
+        if "message_code" not in response.data:
+            response.data["message_code"] = "N/A"
     return response

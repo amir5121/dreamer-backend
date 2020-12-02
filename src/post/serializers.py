@@ -13,4 +13,4 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        exclude = ['id', 'is_removed']
+        fields = ['user', 'status', 'text', 'identifier', 'is_multi_text']

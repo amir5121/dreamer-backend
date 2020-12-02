@@ -71,7 +71,7 @@ class UpdateModelMixin:
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
 
-        return DreamerResponse(code=status.HTTP_200_OK, data=serializer.data, ).toJSONResponse()
+        return DreamerResponse(code=status.HTTP_200_OK, data=serializer.data).toJSONResponse()
 
     def perform_update(self, serializer):
         serializer.save()

@@ -5,8 +5,9 @@ from rest_framework.response import Response
 
 
 class DreamerResponse:
-    def __init__(self, data, message='ok', code=status.HTTP_200_OK, headers=None):
+    def __init__(self, data, message=None, code=status.HTTP_200_OK, headers=None, message_code='ok'):
         self.message = message
+        self.message_code = message_code
         self.code = code
         self.data = data
         self.headers = headers
@@ -17,4 +18,5 @@ class DreamerResponse:
     def toJSONResponse(self):
         res = self.__dict__
         headers = res.pop('headers')
-        return Response(res, status=self.code, headers=headers)
+        code = res.pop('code')
+        return Response(res, status=code, headers=headers)
