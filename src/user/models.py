@@ -3,6 +3,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from versatileimagefield.fields import VersatileImageField
 
 
 class DreamerUserManager(UserManager):
@@ -26,8 +27,12 @@ class DreamerUserManager(UserManager):
 class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    avatar = VersatileImageField(upload_to='avatars/', blank=True, null=True)
 
     REQUIRED_FIELDS = []
     USERNAME_FIELD = 'email'
 
     objects = DreamerUserManager()
+
+    def avatar_image(self):
+        return self.avatar or f"https://loremflickr.com/g/400/400/paris,girl/?lock={self.id}"

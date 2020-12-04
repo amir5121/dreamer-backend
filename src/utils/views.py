@@ -10,7 +10,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.viewsets import GenericViewSet
 
-from user.serializers import UserSelfSerializer
 from utils import rest_mixins
 from utils.dreamer_response import DreamerResponse
 from utils.rest_validation import DreamerValidationError
@@ -62,22 +61,6 @@ class DreamerViewSet(
     rest_mixins.DestroyModelMixin
 ):
     pass
-
-
-class InitialConfigView(views.APIView):
-
-    def get(self, request, *args, **kwargs):
-        result = {
-            "self": None
-        }
-        if request.user.is_authenticated:
-            result.update(
-                {
-                    "self": UserSelfSerializer(instance=request.user).data
-                }
-            )
-
-        return DreamerResponse(data=result).toJSONResponse()
 
 
 class FileUploadView(views.APIView):

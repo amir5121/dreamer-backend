@@ -11,3 +11,5 @@ djangorestframework-simplejwt
 django-model-utils
 django-better-admin-arrayfield
 django-filter
+Pillow
+django-versatileimagefield

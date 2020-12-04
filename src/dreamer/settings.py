@@ -9,11 +9,14 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
+import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'djoser',
     'user',
+    'configuration',
     'utils',
     'post',
 ]
@@ -119,7 +123,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'utils.paginator.DreamerPaginator',
-    'PAGE_SIZE': 100,
+    'PAGE_SIZE': 30,
     "EXCEPTION_HANDLER": "utils.rest_validation.dreamer_exception_handler",
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_THROTTLE_RATES": {
@@ -130,6 +134,8 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=30),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": datetime.timedelta(days=30),
 }
 
 DJOSER = {

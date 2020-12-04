@@ -112,7 +112,7 @@ def dreamer_exception_handler(exc, context):
         if "status" not in response.data:
             response.data["status"] = "error"
         if "message" not in response.data:
-            response.data["message"] = "Something went wrong...\n" + str(exc)
+            response.data["message"] = "Something went wrong... " + str(exc)
         if "message_code" not in response.data:
             response.data["message_code"] = "N/A"
     return response
