@@ -19,5 +19,5 @@ class ConfigurationsSerializer(serializers.ModelSerializer):
     def get_self(self, _):
         request_user = self.context["request"].user
         if request_user.is_authenticated:
-            return UserSelfSerializer(instance=request_user).data
+            return UserSelfSerializer(instance=request_user, context=self.context).data
         return None

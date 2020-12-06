@@ -34,5 +34,14 @@ class User(AbstractUser):
 
     objects = DreamerUserManager()
 
+    @property
+    def get_full_name(self):
+        full_name = super(User, self).get_full_name()
+        if full_name:
+            return full_name
+        return "Dreamer"
+
+    @property
     def avatar_image(self):
-        return self.avatar or f"https://loremflickr.com/g/400/400/paris,girl/?lock={self.id}"
+        return self.avatar or f"https://loremflickr.com/g/320/320/paris,girl/?lock={self.id}"
+        # return self.avatar or f"https://loremflickr.com/g/320/320/?lock={self.id}"

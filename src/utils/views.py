@@ -54,11 +54,12 @@ class DreamerGenericViewSet(GenericViewSet):
 
 
 class DreamerViewSet(
-    DreamerGenericViewSet,
+    rest_mixins.CreateModelMixin,
     rest_mixins.RetrieveModelMixin,
     rest_mixins.ListModelMixin,
     rest_mixins.UpdateModelMixin,
-    rest_mixins.DestroyModelMixin
+    rest_mixins.DestroyModelMixin,
+    DreamerGenericViewSet,
 ):
     pass
 

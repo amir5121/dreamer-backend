@@ -142,7 +142,8 @@ DJOSER = {
     'SERIALIZERS': {
         "current_user": "user.serializers.UserSelfSerializer"
     },
-    "HIDE_USERS": True
+    "HIDE_USERS": True,
+    "USER_CREATE_PASSWORD_RETYPE": True,
 }
 
 CACHE_DEFAULT_TIME_OUT = 3600
