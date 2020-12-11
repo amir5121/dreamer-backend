@@ -28,6 +28,7 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
     avatar = VersatileImageField(upload_to='avatars/', blank=True, null=True)
+    last_app_open = models.DateTimeField(_('last login'), blank=True, null=True)
 
     REQUIRED_FIELDS = []
     USERNAME_FIELD = 'email'

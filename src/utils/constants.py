@@ -4,6 +4,18 @@ ELEMENTS = (
     ('object', 'object'),
 )
 
+CLOUDY = 0
+NORMAL = 1
+CLEAR = 2
+SUPER_CLEAR = 3
+
+CLEARANCE = (
+    (CLOUDY, "Cloudy"),
+    (NORMAL, "Normal"),
+    (CLEAR, "Clear"),
+    (SUPER_CLEAR, "Super clear"),
+)
+
 FEELINGS = (
     ("enjoyment_happiness", "enjoyment_happiness"),
     ("enjoyment_love", "enjoyment_love"),
@@ -63,4 +75,12 @@ FEELINGS = (
     ("disgust_disturbed", "disgust_disturbed"),
     ("disgust_withdrawal", "disgust_withdrawal"),
     ("disgust_aversion", "disgust_aversion"),
+)
+
+MAIN_FEELINGS = (
+    ("enjoyment", "Enjoyment"),
+    ("sadness", "Sadness"),
+    ("fear", "Fear"),
+    ("anger", "Anger"),
+    ("disgust", "Disgust"),
 )

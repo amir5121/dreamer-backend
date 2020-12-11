@@ -1,6 +1,8 @@
 import uuid
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django_better_admin_arrayfield.models.fields import ArrayField
 from model_utils import Choices
@@ -30,13 +32,9 @@ class Dream(TimeStampedModel, SoftDeletableModel):
         "published",
     )
     publication_status = StatusField(choices_name="PUBLICATION_STATUS")
-    DREAM_CLEARANCE = Choices(
-        "cloudy",
-        "normal",
-        "clear",
-        "super_clear",
+    dream_clearance = models.PositiveSmallIntegerField(
+        choices=constants.CLEARANCE, default=constants.NORMAL
     )
-    dream_clearance = StatusField(choices_name="DREAM_CLEARANCE")
     text = models.TextField()
     title = models.TextField()
     dream_date = models.DateTimeField()
@@ -45,14 +43,49 @@ class Dream(TimeStampedModel, SoftDeletableModel):
     class Meta:
         ordering = ["-created"]
 
+    def __str__(self):
+        return f"{self.user} {self.title}"
+
+
+class FeelingDetail(SoftDeletableModel):
+    parent_type = models.CharField(max_length=64, choices=constants.MAIN_FEELINGS)
+    detailed_type = models.CharField(
+        max_length=64, choices=constants.FEELINGS, null=True, blank=True
+    )
+    description = models.TextField()
+
+    def clean(self):
+        if self.detailed_type and self.parent_type not in self.detailed_type:
+            raise ValidationError("Can't have mixed feeling..")
+        if (
+            self.detailed_type is None
+            and self.__class__.objects.filter(
+                parent_type=self.parent_type, detailed_type__isnull=True
+            )
+            .exclude(id=self.id)
+            .count()
+            > 1
+        ):
+            raise ValidationError(f"Multiple parent for type {self.parent_type}")
+
+    def __str__(self):
+        return f"{self.detailed_type or self.parent_type}"
+
 
 class Feeling(models.Model):
-    dream = models.ForeignKey(Dream, on_delete=models.CASCADE, related_name='feelings')
-    rate = models.PositiveSmallIntegerField(default=0)
-    type = models.CharField(max_length=64, choices=constants.FEELINGS)
+    dream = models.ForeignKey(Dream, on_delete=models.CASCADE, related_name="feelings")
+    rate = models.PositiveSmallIntegerField(
+        default=0,
+        validators=[MaxValueValidator(10), MinValueValidator(0)],
+    )
+    feeling = models.ForeignKey(FeelingDetail, on_delete=models.PROTECT)
+
+    def clean(self):
+        if self.feeling.detailed_type is None:
+            raise ValidationError(f"Must be a detailed feeling")
 
 
 class Element(models.Model):
-    dream = models.ForeignKey(Dream, on_delete=models.CASCADE, related_name='elements')
+    dream = models.ForeignKey(Dream, on_delete=models.CASCADE, related_name="elements")
     elements = ArrayField(models.TextField())
     type = models.CharField(max_length=64, choices=constants.ELEMENTS)
