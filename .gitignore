@@ -6,4 +6,5 @@ src/venv/
 *uwsgi.log
 src/runner/logs/*
 src/celerybeat-schedule
-src/media
+src/media/configurations
+src/media/word-clouds

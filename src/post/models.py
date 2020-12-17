@@ -15,6 +15,9 @@ from utils import constants
 class Post(TimeStampedModel, SoftDeletableModel):
     publication_date = models.DateTimeField(auto_now_add=True)
     text = ArrayField(models.TextField())
+    POST_TYPES = Choices("word_cloud", "timeline")
+
+    post_type = StatusField(choices_name="POST_TYPES", default=POST_TYPES.timeline)
 
     class Meta:
         ordering = ["-created"]

@@ -13,3 +13,6 @@ django-better-admin-arrayfield
 django-filter
 Pillow
 django-versatileimagefield
+wordcloud
+arabic_reshaper
+python-bidi
