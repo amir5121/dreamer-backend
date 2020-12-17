@@ -40,11 +40,11 @@ class ConfigurationsSerializer(serializers.ModelSerializer):
     def get_feelings(_):
         return FeelingDetailSerializer(
             many=True,
-            instance=FeelingDetail.objects.filter(detailed_type__isnull=False),
+            instance=FeelingDetail.detailed_feelings()
         ).data
 
     @staticmethod
     def get_main_feelings(_):
         return FeelingDetailSerializer(
-            many=True, instance=FeelingDetail.objects.filter(detailed_type__isnull=True)
+            many=True, instance=FeelingDetail.main_feelings()
         ).data

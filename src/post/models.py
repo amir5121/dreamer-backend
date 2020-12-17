@@ -57,17 +57,25 @@ class FeelingDetail(SoftDeletableModel):
     )
     description = models.TextField()
 
+    @staticmethod
+    def main_feelings():
+        return FeelingDetail.objects.filter(detailed_type__isnull=True)
+
+    @staticmethod
+    def detailed_feelings():
+        return FeelingDetail.objects.filter(detailed_type__isnull=False)
+
     def clean(self):
         if self.detailed_type and self.parent_type not in self.detailed_type:
             raise ValidationError("Can't have mixed feeling..")
         if (
-            self.detailed_type is None
-            and self.__class__.objects.filter(
-                parent_type=self.parent_type, detailed_type__isnull=True
-            )
-            .exclude(id=self.id)
-            .count()
-            > 1
+                self.detailed_type is None
+                and self.__class__.objects.filter(
+            parent_type=self.parent_type, detailed_type__isnull=True
+        )
+                .exclude(id=self.id)
+                .count()
+                > 1
         ):
             raise ValidationError(f"Multiple parent for type {self.parent_type}")
 

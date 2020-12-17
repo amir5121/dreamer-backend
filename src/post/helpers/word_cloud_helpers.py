@@ -66,10 +66,7 @@ def clean_text(sentence):
     return sentence
 
 
-def get_word_cloud_image(duration: int, user_id: int) -> str:
-    dreams = Dream.objects.filter(
-        created__gte=timezone.now() - timedelta(days=duration), user_id=user_id
-    ).prefetch_related("elements")
+def get_word_cloud_image(dreams, duration, user_id) -> str:
     text = ""
     for dream in dreams:
         elements = dream.elements.values_list("elements", flat=True)

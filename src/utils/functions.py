@@ -16,8 +16,12 @@ def conversation_path(instance, filename):
 
 
 def get_uploaded_file(file_path):
-    file_path = os.path.join(settings.BASE_DIR, *file_path.split('/'))
+    file_path = os.path.join(settings.BASE_DIR, *file_path.split("/"))
     if not file_path.startswith(settings.MEDIA_ROOT):
         raise ValueError("Access denied.")
     file = open(file_path, "rb")
-    return File(file, name=file_path.split('/')[-1])
+    return File(file, name=file_path.split("/")[-1])
+
+
+def get_request_host(request):
+    return request.scheme + "://" + request.get_host()

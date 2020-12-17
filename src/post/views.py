@@ -1,11 +1,16 @@
+from datetime import timedelta
+
+from django.db.models import Sum
+from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from post.helpers.word_cloud_helpers import get_word_cloud_image
-from post.models import Post, Dream
+from post.models import Post, Dream, Feeling, FeelingDetail
 from post.serializers import PostSerializer, DreamReadSerializer, DreamWriteSerializer
 from utils import views, rest_mixins
 from utils.dreamer_response import DreamerResponse
+from utils.functions import get_request_host
 from utils.views import DreamerGenericViewSet
 
 
@@ -44,14 +49,74 @@ class DreamViewSet(views.DreamerViewSet):
 class AnalyticsView(APIView):
     permission_classes = [IsAuthenticated]
 
-    @staticmethod
-    def get(request, *args, **kwargs):
-        duration = int(request.GET.get("duration", 7))
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.feelings = list()
+        self.request = None
+        self.duration = 7
+        self.dreams = None
+        self.dreams_count = 0
+
+    def get(self, request, *args, **kwargs):
+        self.request = request
+        self.duration = int(request.GET.get("duration", 7))
+        self.dreams = Dream.objects.filter(
+            created__gte=timezone.now() - timedelta(days=self.duration),
+            user_id=request.user.id,
+        ).prefetch_related("elements")
+        self.dreams_count = self.dreams.count()
+        self.set_feelings_sum()
         return DreamerResponse(
             data={
-                "main_quote": Post.objects.filter(post_type=Post.POST_TYPES.word_cloud)
-                .order_by("modified")
-                .last(),
-                "word_cloud": get_word_cloud_image(duration, request.user.id),
+                "main_quote": self.get_main_quote(),
+                "word_cloud": self.get_word_cloud(),
+                "feelings": self.feelings,
+                "dreams_count": self.dreams_count,
             }
         ).toJSONResponse()
+
+    @staticmethod
+    def get_main_quote():
+        return (
+            Post.objects.filter(post_type=Post.POST_TYPES.word_cloud)
+            .order_by("modified")
+            .last()
+            .text[0]
+        )
+
+    def get_word_cloud(self):
+        return (
+            get_request_host(self.request)
+            + "/"
+            + get_word_cloud_image(
+                dreams=self.dreams, duration=self.duration, user_id=self.request.user.id
+            )
+        )
+
+    def set_feelings_sum(self):
+        feeling_grouped = list(
+            Feeling.objects.filter(
+                dream__user_id=1,
+                dream__created__gte=timezone.now() - timedelta(days=self.duration),
+            )
+            .values("feeling__parent_type")
+            .annotate(rates_sum=Sum("rate"))
+        )
+        total = sum([i["rates_sum"] for i in feeling_grouped])
+        for feeling in FeelingDetail.main_feelings():
+            if total < 1:
+                self.feelings.append({"name": feeling.parent_type, "value": 0})
+            else:
+                feeling_sum = list(
+                    filter(
+                        lambda x: x["feeling__parent_type"] == feeling.parent_type,
+                        feeling_grouped,
+                    )
+                )
+                if len(feeling_sum) > 0:
+                    feeling_sum = feeling_sum[0]["rates_sum"]
+                else:
+                    feeling_sum = 0
+                self.feelings.append(
+                    {"name": feeling.parent_type, "value": feeling_sum / total}
+                )
