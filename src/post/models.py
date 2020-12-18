@@ -1,5 +1,6 @@
 import uuid
 
+from colorfield.fields import ColorField
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -56,6 +57,7 @@ class FeelingDetail(SoftDeletableModel):
         max_length=64, choices=constants.FEELINGS, null=True, blank=True
     )
     description = models.TextField()
+    color = ColorField(default="#1F182E")
 
     @staticmethod
     def main_feelings():
@@ -69,13 +71,13 @@ class FeelingDetail(SoftDeletableModel):
         if self.detailed_type and self.parent_type not in self.detailed_type:
             raise ValidationError("Can't have mixed feeling..")
         if (
-                self.detailed_type is None
-                and self.__class__.objects.filter(
-            parent_type=self.parent_type, detailed_type__isnull=True
-        )
-                .exclude(id=self.id)
-                .count()
-                > 1
+            self.detailed_type is None
+            and self.__class__.objects.filter(
+                parent_type=self.parent_type, detailed_type__isnull=True
+            )
+            .exclude(id=self.id)
+            .count()
+            > 1
         ):
             raise ValidationError(f"Multiple parent for type {self.parent_type}")
 

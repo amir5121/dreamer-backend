@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from django.db.models import Sum
+from django.db.models import Sum, Avg
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -72,6 +72,9 @@ class AnalyticsView(APIView):
                 "word_cloud": self.get_word_cloud(),
                 "feelings": self.feelings,
                 "dreams_count": self.dreams_count,
+                "clearances": self.dreams.extra(select={"day": "date(created)"})
+                .values("day").order_by("day")
+                .annotate(average=Avg("dream_clearance")),
             }
         ).toJSONResponse()
 
@@ -118,5 +121,9 @@ class AnalyticsView(APIView):
                 else:
                     feeling_sum = 0
                 self.feelings.append(
-                    {"name": feeling.parent_type, "value": feeling_sum / total}
+                    {
+                        "label": feeling.parent_type,
+                        "value": feeling_sum / total,
+                        "color": feeling.color,
+                    }
                 )

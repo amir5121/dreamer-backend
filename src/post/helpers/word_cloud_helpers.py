@@ -75,8 +75,8 @@ def get_word_cloud_image(dreams, duration, user_id) -> str:
     text = arabic_reshaper.reshape(clean_text(text))
     text = get_display(text)
     word_cloud = WordCloud(
-        width=800,
-        height=500,
+        width=600,
+        height=350,
         max_words=144,
         background_color="rgb(33,33,33)",
         margin=16,

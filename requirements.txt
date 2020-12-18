@@ -16,3 +16,4 @@ django-versatileimagefield
 wordcloud
 arabic_reshaper
 python-bidi
+django-colorfield
