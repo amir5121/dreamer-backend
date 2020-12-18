@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.db.models import Sum, Avg
+from django.db.models.functions import TruncDay, TruncMonth
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -66,14 +67,16 @@ class AnalyticsView(APIView):
         ).prefetch_related("elements")
         self.dreams_count = self.dreams.count()
         self.set_feelings_sum()
+        trunc_func = TruncDay if self.duration < 45 else TruncMonth
         return DreamerResponse(
             data={
                 "main_quote": self.get_main_quote(),
                 "word_cloud": self.get_word_cloud(),
                 "feelings": self.feelings,
                 "dreams_count": self.dreams_count,
-                "clearances": self.dreams.extra(select={"day": "date(created)"})
-                .values("day").order_by("day")
+                "clearances": self.dreams.annotate(day=trunc_func("created"))
+                .values("day")
+                .order_by("day")
                 .annotate(average=Avg("dream_clearance")),
             }
         ).toJSONResponse()
