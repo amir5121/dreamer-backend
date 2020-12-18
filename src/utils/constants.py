@@ -16,6 +16,12 @@ CLEARANCE = (
     (SUPER_CLEAR, "Super clear"),
 )
 
+GENDERS = (
+    ('male', "Male"),
+    ('female', "Female"),
+    ('other', "Other"),
+)
+
 FEELINGS = (
     ("enjoyment_happiness", "enjoyment_happiness"),
     ("enjoyment_love", "enjoyment_love"),

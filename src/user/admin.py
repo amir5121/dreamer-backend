@@ -5,6 +5,6 @@ from user.models import User
 
 UserAdmin.list_display += ("avatar",)  # don't forget the commas
 # UserAdmin.list_filter += ('can_charge', )
-UserAdmin.fieldsets += (("Extra Fields", {"fields": ("avatar", "last_app_open")}),)
+UserAdmin.fieldsets += (("Extra Fields", {"fields": ("avatar", "last_app_open", "gender", "birth_date")}),)
 
 admin.site.register(User, UserAdmin)

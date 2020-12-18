@@ -5,7 +5,8 @@ from utils.serializers import SerializerFileMixin
 
 
 class UserSelfSerializer(SerializerFileMixin, serializers.ModelSerializer):
-    full_name = serializers.CharField(source="get_full_name")
+    full_name = serializers.CharField(source="get_full_name", read_only=True)
+    gender_display = serializers.CharField(source="get_gender_display", read_only=True)
 
     class Meta:
         model = get_user_model()
@@ -19,12 +20,19 @@ class UserSelfSerializer(SerializerFileMixin, serializers.ModelSerializer):
             "avatar",
             "avatar_image",
             "full_name",
+            "birth_date",
+            "gender",
+            "gender_display",
         ]
 
         read_only_fields = [
             "email",
             "username",
-            "date_joined"
+            "date_joined",
+            "gender_display",
+            "full_name",
+            "avatar_image",
+            "identifier",
         ]
 
 

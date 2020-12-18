@@ -67,7 +67,7 @@ class AnalyticsView(APIView):
         ).prefetch_related("elements")
         self.dreams_count = self.dreams.count()
         self.set_feelings_sum()
-        trunc_func = TruncDay if self.duration < 45 else TruncMonth
+        trunc_func = TruncDay if self.duration < 128 else TruncMonth
         return DreamerResponse(
             data={
                 "main_quote": self.get_main_quote(),

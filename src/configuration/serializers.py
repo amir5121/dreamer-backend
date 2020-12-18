@@ -5,13 +5,15 @@ from post.models import FeelingDetail
 from post.serializers import FeelingDetailSerializer
 from user.serializers import UserSelfSerializer
 from utils import constants
+from utils.functions import convert_to_label_value
 
 
 class ConfigurationsSerializer(serializers.ModelSerializer):
     self = serializers.SerializerMethodField()
+    clearance_choices = serializers.SerializerMethodField()
+    gender_choices = serializers.SerializerMethodField()
     feelings = serializers.SerializerMethodField()
     main_feelings = serializers.SerializerMethodField()
-    clearance_choices = serializers.SerializerMethodField()
 
     class Meta:
         model = DreamerConfiguration
@@ -25,16 +27,7 @@ class ConfigurationsSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_clearance_choices(_):
-        result = []
-        for value, label in dict(constants.CLEARANCE).items():
-            result.append(
-                {
-                    "value": value,
-                    "label": label,
-                }
-            )
-
-        return result
+        return convert_to_label_value(constants.CLEARANCE)
 
     @staticmethod
     def get_feelings(_):
@@ -48,3 +41,7 @@ class ConfigurationsSerializer(serializers.ModelSerializer):
         return FeelingDetailSerializer(
             many=True, instance=FeelingDetail.main_feelings()
         ).data
+
+    @staticmethod
+    def get_gender_choices(_):
+        return convert_to_label_value(constants.GENDERS)

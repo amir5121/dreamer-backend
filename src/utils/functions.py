@@ -25,3 +25,16 @@ def get_uploaded_file(file_path):
 
 def get_request_host(request):
     return request.scheme + "://" + request.get_host()
+    # return "https://amir.jprq.live"
+
+
+def convert_to_label_value(choices):
+    result = []
+    for value, label in dict(choices).items():
+        result.append(
+            {
+                "value": value,
+                "label": label,
+            }
+        )
+    return result
