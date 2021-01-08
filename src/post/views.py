@@ -102,7 +102,7 @@ class AnalyticsView(APIView):
     def set_feelings_sum(self):
         feeling_grouped = list(
             Feeling.objects.filter(
-                dream__user_id=1,
+                dream__user_id=self.request.user.id,
                 dream__created__gte=timezone.now() - timedelta(days=self.duration),
             )
             .values("feeling__parent_type")
