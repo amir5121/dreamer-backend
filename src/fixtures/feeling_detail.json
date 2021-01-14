@@ -1,0 +1,651 @@
+[
+  {
+    "model": "post.feelingdetail",
+    "pk": 118,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_happiness",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac efficitur ante. Vivamus felis neque, lobortis et risus sit amet, tempus condimentum eros. Donec molestie in diam quis interdum. Nam scelerisque lacinia scelerisque. Nunc nec nulla in mauris fringilla cursus ut vel ante. Proin faucibus pellentesque metus at lacinia. Nulla a pretium magna. Phasellus suscipit porta ante at consequat. Maecenas efficitur, nunc sed bibendum aliquet, magna tellus eleifend nulla, eu semper libero eros sit amet risus.",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 119,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_love",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 120,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_relief",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 121,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_contentment",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 122,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_amusement",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 123,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_joy",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 124,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_pride",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 125,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_excitement",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 126,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_peace",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 127,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_satisfaction",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 128,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": "enjoyment_compassion",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 129,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_lonely",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 130,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_heartbroken",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 131,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_gloomy",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 132,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_disappointed",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 133,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_hopeless",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 134,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_grieved",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 135,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_unhappy",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 136,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_lost",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 137,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_troubled",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 138,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_resigned",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 139,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": "sadness_miserable",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 140,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_worried",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 141,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_doubtful",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 142,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_nervous",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 143,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_anxious",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 144,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_terrified",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 145,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_panicked",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 146,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_horrified",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 147,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_desperate",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 148,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_confused",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 149,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": "fear_stressed",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 150,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_annoyed",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 151,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_frustrated",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 152,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_peeved",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 153,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_contrary",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 154,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_bitter",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 155,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_infuriated",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 156,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_irritated",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 157,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_mad",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 158,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_cheated",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 159,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_vengeful",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 160,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": "anger_insulted",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 161,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_dislike",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 162,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_revulsion",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 163,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_loathing",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 164,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_disapproving",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 165,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_offended",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 166,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_horrified",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 167,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_uncomfortable",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 168,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_nauseated",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 169,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_disturbed",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 170,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_withdrawal",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 171,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": "disgust_aversion",
+      "description": "Sadegh is in love!",
+      "color": "#1F182E"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 172,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "enjoyment",
+      "detailed_type": null,
+      "description": "Duis aliquam non magna vitae egestas. Quisque venenatis eleifend ex nec convallis. Aliquam ultricies vel turpis vel auctor. Ut lobortis feugiat sapien, at faucibus arcu vestibulum eu. Nunc feugiat eros massa, quis tempor enim tincidunt nec. Aliquam efficitur, tortor et elementum laoreet, leo nibh consequat leo, id aliquam magna enim vel velit. Vestibulum pharetra, justo non euismod luctus, lorem nisl egestas neque, non feugiat purus quam in massa. Aliquam ex nisl, fermentum nec ante sollicitudin, vehicula ornare diam. Donec mauris erat, tempor a purus ut, tempor cursus nunc.",
+      "color": "#7B1FA2"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 173,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "sadness",
+      "detailed_type": null,
+      "description": "In imperdiet pulvinar ultricies. Suspendisse pellentesque mollis rhoncus. Pellentesque accumsan scelerisque pellentesque. Nam ut urna odio. In hac habitasse platea dictumst. Etiam rutrum nisl sem, sit amet tincidunt tellus pharetra quis. Nulla urna metus, mattis quis venenatis nec, varius vitae felis. Duis at iaculis odio. Fusce auctor nisi ut turpis vulputate, et scelerisque lacus venenatis.",
+      "color": "#0097A7"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 174,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "fear",
+      "detailed_type": null,
+      "description": "Proin eget consequat neque. Mauris tellus libero, elementum non tempor sed, eleifend quis mi. Cras eu felis id metus euismod egestas sed et lorem. Proin laoreet facilisis nulla, vitae faucibus erat tempor ac. Proin risus diam, cursus at arcu vitae, iaculis rhoncus risus. Nunc imperdiet porta vestibulum. Praesent in eleifend tellus, sit amet sagittis justo. Nunc purus nisl, efficitur nec molestie eu, scelerisque non velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed volutpat at lectus sed tincidunt.",
+      "color": "#3F51B5"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 175,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "anger",
+      "detailed_type": null,
+      "description": "In ultricies pretium massa, in egestas dolor placerat quis. Duis mattis eros mattis congue volutpat. Nunc elit tellus, fringilla quis odio ut, finibus mattis tellus. Nulla facilisi. Mauris magna nisl, suscipit id gravida vitae, hendrerit quis nunc. Nulla sed enim ac dolor scelerisque sodales. Suspendisse scelerisque non lacus at tempor. Donec ac tristique libero. Fusce rhoncus, ex vitae sagittis laoreet, augue libero iaculis eros, a semper ligula purus non neque.",
+      "color": "#4DD0E1"
+    }
+  },
+  {
+    "model": "post.feelingdetail",
+    "pk": 176,
+    "fields": {
+      "is_removed": false,
+      "parent_type": "disgust",
+      "detailed_type": null,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac efficitur ante. Vivamus felis neque, lobortis et risus sit amet, tempus condimentum eros. Donec molestie in diam quis interdum. Nam scelerisque lacinia scelerisque. Nunc nec nulla in mauris fringilla cursus ut vel ante. Proin faucibus pellentesque metus at lacinia. Nulla a pretium magna. Phasellus suscipit porta ante at consequat. Maecenas efficitur, nunc sed bibendum aliquet, magna tellus eleifend nulla, eu semper libero eros sit amet risus.",
+      "color": "#26A69A"
+    }
+  }
+]
