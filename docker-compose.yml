@@ -69,6 +69,7 @@ services:
     depends_on:
       - postgres
       - redis
+      - rabbitmq
 
     command: ["sh", "runner/celery_run.sh"]
 
@@ -91,6 +92,7 @@ services:
     depends_on:
       - postgres
       - redis
+      - rabbitmq
     command: ["sh", "runner/celery_beat_run.sh"]
 
 networks:
