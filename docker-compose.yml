@@ -7,7 +7,7 @@ services:
     image: dreamer-postgres
     command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
     volumes:
-      - xe_postgres_data:/var/lib/postgresql/data
+      - dreamer_postgres_data:/var/lib/postgresql/data
       - ${POSTGRES_INIT_SCRIPT}:/docker-entrypoint-initdb.d/init.sh
       - ${POSTGRES_CONFIG}:/etc/postgresql/postgresql.conf
       # - ${POSTGRES_LOG}:/var/log/postgresql
@@ -58,7 +58,7 @@ services:
     volumes:
       - dreamer_backend_source:/srv/dreamer
       - dreamer_backend_static:/srv/dreamer/backend_static
-      - xe_celery_logs:/var/log/celery
+      - dreamer_celery_logs:/var/log/celery
     environment:
       DB_SERVICE: postgres
       REDIS_SERVICE: redis
@@ -80,7 +80,7 @@ services:
     volumes:
       - dreamer_backend_source:/srv/dreamer
       - dreamer_backend_static:/srv/dreamer/backend_static
-      - xe_celery_logs:/var/log/celery
+      - dreamer_celery_logs:/var/log/celery
     environment:
       DB_SERVICE: postgres
       REDIS_SERVICE: redis
@@ -115,16 +115,16 @@ volumes:
       device: ${DREAMER_WEB_PATH}/src/backend_static
       o: bind
 
-  xe_postgres_data:
-    name: xe_postgres_data
+  dreamer_postgres_data:
+    name: dreamer_postgres_data
     driver: local
     driver_opts:
       type: non
       device: ${POSTGRES_DATA}
       o: bind
 
-  xe_celery_logs:
-    name: xe_celery_logs
+  dreamer_celery_logs:
+    name: dreamer_celery_logs
     driver: local
     driver_opts:
       type: non
