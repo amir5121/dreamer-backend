@@ -5,6 +5,7 @@ src/venv/
 .env
 *uwsgi.log
 src/runner/logs/*
+src/runner/dreamer_restart
 src/celerybeat-schedule
 src/media/configurations
 src/media/word-clouds
