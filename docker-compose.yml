@@ -41,7 +41,7 @@ services:
       - postgres
       - redis
     ports:
-      - "${WEB_HTTP_PUBLISH_PORT}:8486"
+      - 127.0.0.1:${WEB_HTTP_PUBLISH_PORT}:8486
     command: uwsgi --ini /srv/dreamer/runner/uwsgi.ini
 
   redis:
