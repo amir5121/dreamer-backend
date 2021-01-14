@@ -27,7 +27,7 @@ SECRET_KEY = 'n=4_&rx%3c(0x=z@)wct45g72_-oo02jt!-&!i1#_ypjt&_q+z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["dreamer.stickergramapp.com"]
 
 # Application definition
 
