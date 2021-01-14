@@ -7,8 +7,8 @@ RUN mkdir $PROJECT_PATH
 WORKDIR $PROJECT_PATH
 COPY requirements.txt $PROJECT_PATH
 
-RUN apk add --no-cache  postgresql-dev jpeg-dev libmagic libxslt-dev 
-RUN apk add --no-cache --virtual .build-deps build-base libffi-dev zlib-dev libxml2 g++ freetype-dev jpeg-dev
+RUN apk add --no-cache  postgresql-dev jpeg-dev libmagic libxslt-dev g++ freetype-dev jpeg-dev
+RUN apk add --no-cache --virtual .build-deps build-base libffi-dev zlib-dev libxml2
 
 ADD ./requirements.txt /srv/dreamer/requirements.txt
 
