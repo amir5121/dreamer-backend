@@ -2,7 +2,6 @@ from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import exceptions, status, serializers
 from rest_framework.exceptions import Throttled
-from rest_framework_simplejwt.exceptions import InvalidToken
 
 
 class DreamerValidationError(exceptions.APIException):
@@ -71,6 +70,7 @@ def dreamer_exception_handler(exc, context):
     from rest_framework.views import exception_handler
 
     response = exception_handler(exc, context)
+    print("AAAAAAAAAAAAA", type(exc), exc)
 
     if response is not None:
         data = {"errors": response.data}
@@ -86,17 +86,17 @@ def dreamer_exception_handler(exc, context):
 
             else:
                 response.data["message"] = str(exc)
-        if isinstance(exc, DreamerValidationError):
+        elif isinstance(exc, DreamerValidationError):
             response.data["message_code"] = exc.message_code
             response.data["message"] = exc.message
             response.data["data"] = exc.data
             response.data["status"] = exc.status
 
-        if isinstance(exc, serializers.ValidationError):
+        elif isinstance(exc, serializers.ValidationError):
             response.data["message"] = humanize_exception(exc)
             response.data["message_code"] = "unknown"
         # response.data['code'] = exc.code
-        if isinstance(exc, Throttled):
+        elif isinstance(exc, Throttled):
             response.data["message"] = _("You have reached your request limit")
             time = list(filter(lambda i: i.isdigit(), exc.detail.split()))
             if time:
@@ -106,9 +106,9 @@ def dreamer_exception_handler(exc, context):
                 ] = f"{_('You have reached your request limit please try in')} {time} {_('second')}"
             response.data["message_code"] = "unknown"
 
-        if isinstance(exc, InvalidToken):
-            response.data["message"] = exc.default_detail
-            response.data["message_code"] = exc.default_code
+        # elif isinstance(exc, InvalidToken):
+        #     response.data["message"] = exc.default_detail
+        #     response.data["message_code"] = exc.default_code
         if "status" not in response.data:
             response.data["status"] = "error"
         if "message" not in response.data:

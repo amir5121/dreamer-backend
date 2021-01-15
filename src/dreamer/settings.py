@@ -16,14 +16,14 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIXTURE_DIRS = (os.path.join(BASE_DIR, "fixtures"),)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n=4_&rx%3c(0x=z@)wct45g72_-oo02jt!-&!i1#_ypjt&_q+z'
+SECRET_KEY = "n=4_&rx%3c(0x=z@)wct45g72_-oo02jt!-&!i1#_ypjt&_q+z"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,79 +33,84 @@ ALLOWED_HOSTS = ["dreamer.stickergramapp.com"]
 # Application definition
 
 INSTALLED_APPS = [
-    'colorfield',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django_better_admin_arrayfield',
-    'corsheaders',
-    'rest_framework',
-    'django_filters',
-    'djoser',
-    'user',
-    'configuration',
-    'utils',
-    'post',
+    "colorfield",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django_better_admin_arrayfield",
+    "corsheaders",
+    "rest_framework",
+    "django_filters",
+    "djoser",
+    "oauth2_provider",
+    "social_django",
+    "rest_framework_social_oauth2",
+    "user",
+    "configuration",
+    "utils",
+    "post",
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'dreamer.urls'
+ROOT_URLCONF = "dreamer.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'dreamer.wsgi.application'
+WSGI_APPLICATION = "dreamer.wsgi.application"
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -116,35 +121,41 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/backend_static/'
+STATIC_URL = "/backend_static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'backend_static')
+STATIC_ROOT = os.path.join(BASE_DIR, "backend_static")
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    "rest_framework_social_oauth2.backends.DjangoOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+)
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+        "rest_framework_social_oauth2.authentication.SocialAuthentication",
     ),
-    'DEFAULT_PAGINATION_CLASS': 'utils.paginator.DreamerPaginator',
-    'PAGE_SIZE': 30,
+    "DEFAULT_PAGINATION_CLASS": "utils.paginator.DreamerPaginator",
+    "PAGE_SIZE": 30,
     "EXCEPTION_HANDLER": "utils.rest_validation.dreamer_exception_handler",
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_THROTTLE_RATES": {
         "file_upload_throttle": "100/day",
     },
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
 }
 
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
-    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=30),
-    "SLIDING_TOKEN_REFRESH_LIFETIME": datetime.timedelta(days=30),
-}
+# SIMPLE_JWT = {
+#     "AUTH_HEADER_TYPES": ("JWT",),
+#     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=30),
+#     "SLIDING_TOKEN_REFRESH_LIFETIME": datetime.timedelta(days=30),
+# }
 
 DJOSER = {
-    'SERIALIZERS': {
-        "current_user": "user.serializers.UserSelfSerializer"
-    },
+    "SERIALIZERS": {"current_user": "user.serializers.UserSelfSerializer"},
     "HIDE_USERS": True,
     "USER_CREATE_PASSWORD_RETYPE": True,
 }
@@ -152,52 +163,52 @@ DJOSER = {
 CACHE_DEFAULT_TIME_OUT = 3600
 CACHE_ENABLED = True
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = "user.User"
 
-if os.environ.get('IN_DOCKER'):
+if os.environ.get("IN_DOCKER"):
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['DREAMER_DB_NAME'],
-            'USER': os.environ['DREAMER_DB_USER'],
-            'PASSWORD': os.environ['DREAMER_DB_PASS'],
-            'PORT': os.environ['DB_PORT'],
-            'HOST': os.environ['DB_SERVICE'],
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ["DREAMER_DB_NAME"],
+            "USER": os.environ["DREAMER_DB_USER"],
+            "PASSWORD": os.environ["DREAMER_DB_PASS"],
+            "PORT": os.environ["DB_PORT"],
+            "HOST": os.environ["DB_SERVICE"],
         }
     }
     CACHES = {
-        'default': {
-            'BACKEND': 'django_redis.cache.RedisCache',
-            'LOCATION': f'redis://{os.environ["REDIS_SERVICE"]}:{os.environ["REDIS_PORT"]}/',
-            'OPTIONS': {
-                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            }
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": f'redis://{os.environ["REDIS_SERVICE"]}:{os.environ["REDIS_PORT"]}/',
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
         }
     }
-    CELERY_BROKER = 'amqp://rabbitmq:5672'
+    CELERY_BROKER = "amqp://rabbitmq:5672"
 
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'dreamer',
-            'USER': 'dreamer',
-            'PASSWORD': 'dreamer',
-            'HOST': 'localhost',
-            'PORT': '5432',
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "dreamer",
+            "USER": "dreamer",
+            "PASSWORD": "dreamer",
+            "HOST": "localhost",
+            "PORT": "5432",
         }
     }
 
     CACHES = {
-        'default': {
-            'BACKEND': 'django_redis.cache.RedisCache',
-            'LOCATION': 'redis://127.0.0.1:6379/',
-            'OPTIONS': {
-                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            }
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
         }
     }
-    CELERY_BROKER = 'redis://localhost:6379'
+    CELERY_BROKER = "redis://localhost:6379"
 
 f = os.path.join(BASE_DIR, "dreamer", "local_settings.py")
 if os.path.exists(f):
