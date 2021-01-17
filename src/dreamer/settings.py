@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "configuration",
     "utils",
     "post",
+    "fcm_django",
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ STATIC_URL = "/backend_static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "backend_static")
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
+    "social_core.backends.google.GoogleOAuth2",
     "rest_framework_social_oauth2.backends.DjangoOAuth2",
     "django.contrib.auth.backends.ModelBackend",
 )
@@ -148,11 +149,19 @@ REST_FRAMEWORK = {
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
 }
 
-# SIMPLE_JWT = {
-#     "AUTH_HEADER_TYPES": ("JWT",),
-#     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=30),
-#     "SLIDING_TOKEN_REFRESH_LIFETIME": datetime.timedelta(days=30),
-# }
+FCM_DJANGO_SETTINGS = {
+    # default: _('FCM Django')
+    "APP_VERBOSE_NAME": "Dreamer",
+    # Your firebase API KEY
+    "FCM_SERVER_KEY": "AAAA2ssMQTI:APA91bGTjrYw2NMwe-vjqqajPH5m6WY70mehGFtvzl1Xj7bNdF335TLNxm0Q9yphf90UdSnsEJtXcRFpDsrorprMl0Q57op2thp6xtM_GCXcLag_keV74_B3fvALATPjRTnDDKVONrpv",
+    # true if you want to have only one active device per registered user at a time
+    # default: False
+    "ONE_DEVICE_PER_USER": False,
+    # devices to which notifications cannot be sent,
+    # are deleted upon receiving error response from FCM
+    # default: False
+    "DELETE_INACTIVE_DEVICES": True,
+}
 
 DJOSER = {
     "SERIALIZERS": {"current_user": "user.serializers.UserSelfSerializer"},

@@ -18,3 +18,5 @@ python-bidi
 django-colorfield
 sentry-sdk
 django-rest-framework-social-oauth2
+fcm-django
+
