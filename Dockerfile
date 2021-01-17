@@ -6,11 +6,9 @@ ENV PROJECT_PATH /srv/dreamer/
 RUN mkdir $PROJECT_PATH
 WORKDIR $PROJECT_PATH
 
-RUN apk add --no-cache postgresql-dev jpeg-dev libmagic libxslt-dev freetype-dev g++
-RUN apk add --no-cache --virtual .build-deps build-base libffi-dev zlib-dev libxml2
-
 RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
-RUN apk --no-cache add shadow
+RUN apk add --no-cache postgresql-dev jpeg-dev libmagic libxslt-dev freetype-dev g++ shadow
+RUN apk add --no-cache --virtual .build-deps build-base libffi-dev zlib-dev libxml2
 
 ADD ./requirements.txt /srv/dreamer/requirements.txt
 
