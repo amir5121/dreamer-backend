@@ -9,6 +9,9 @@ WORKDIR $PROJECT_PATH
 RUN apk add --no-cache postgresql-dev jpeg-dev libmagic libxslt-dev freetype-dev
 RUN apk add --no-cache --virtual .build-deps build-base libffi-dev zlib-dev libxml2 g++
 
+RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
+RUN apk --no-cache add shadow
+
 ADD ./requirements.txt /srv/dreamer/requirements.txt
 
 RUN pip install --upgrade pip 
@@ -28,8 +31,6 @@ RUN runDeps="$( \
 RUN apk add --virtual .rundeps $runDeps
 RUN apk del .build-deps
 
-RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
-RUN apk --no-cache add shadow
 RUN adduser -s /bin/sh -D dreamer
 RUN usermod -u 1000 dreamer
 RUN groupmod -g 1000 dreamer
