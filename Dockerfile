@@ -5,7 +5,6 @@ ENV PROJECT_PATH /srv/dreamer/
 
 RUN mkdir $PROJECT_PATH
 WORKDIR $PROJECT_PATH
-COPY requirements.txt $PROJECT_PATH
 
 RUN apk add --no-cache postgresql-dev jpeg-dev libmagic libxslt-dev freetype-dev
 RUN apk add --no-cache --virtual .build-deps build-base libffi-dev zlib-dev libxml2 g++
@@ -18,18 +17,15 @@ RUN pip install -r requirements.txt
 RUN find /usr/local \
     \( -type d -a -name test -o -name tests \) \
     -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
-    -exec rm -rf '{}' + 
-
+    -exec rm -rf '{}' +
 RUN runDeps="$( \
     scanelf --needed --nobanner --recursive /usr/local \
     | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
     | sort -u \
     | xargs -r apk info --installed \
     | sort -u \
-    )" 
-
-RUN apk add --virtual .rundeps $runDeps 
-
+    )"
+RUN apk add --virtual .rundeps $runDeps
 RUN apk del .build-deps
 
 RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
