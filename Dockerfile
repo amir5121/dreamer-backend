@@ -7,8 +7,8 @@ RUN mkdir $PROJECT_PATH
 WORKDIR $PROJECT_PATH
 
 RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
-RUN apk add --no-cache postgresql-dev jpeg-dev libmagic libxslt-dev freetype-dev g++ shadow
-RUN apk add --no-cache --virtual .build-deps build-base libffi-dev zlib-dev libxml2
+RUN apk add --no-cache postgresql-dev jpeg-dev libmagic libxslt-dev freetype-dev shadow
+RUN apk add --no-cache --virtual .build-deps build-base libffi-dev zlib-dev libxml2 g++
 
 ADD ./requirements.txt /srv/dreamer/requirements.txt
 

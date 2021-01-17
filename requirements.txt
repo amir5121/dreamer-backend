@@ -12,6 +12,7 @@ django-better-admin-arrayfield
 django-filter
 Pillow
 django-versatileimagefield
+python-magic==0.4.18
 wordcloud
 arabic_reshaper
 python-bidi
