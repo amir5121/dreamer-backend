@@ -169,6 +169,15 @@ DJOSER = {
     "USER_CREATE_PASSWORD_RETYPE": True,
 }
 
+OAUTH2_PROVIDER = {
+    # "SCOPES": {
+    #     "read": "Read scope",
+    #     "write": "Write scope",
+    # },
+    # "CLIENT_ID_GENERATOR_CLASS": "oauth2_provider.generators.ClientIdGenerator",
+    # "ACCESS_TOKEN_EXPIRE_SECONDS": 1,
+}
+
 CACHE_DEFAULT_TIME_OUT = 3600
 CACHE_ENABLED = True
 

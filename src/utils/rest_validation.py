@@ -95,6 +95,9 @@ def dreamer_exception_handler(exc, context):
         elif isinstance(exc, serializers.ValidationError):
             response.data["message"] = humanize_exception(exc)
             response.data["message_code"] = "unknown"
+        elif isinstance(exc, exceptions.AuthenticationFailed):
+            response.data["message_code"] = "authentication failed"
+            response.data["message_code"] = "token_not_valid"
         # response.data['code'] = exc.code
         elif isinstance(exc, Throttled):
             response.data["message"] = _("You have reached your request limit")
