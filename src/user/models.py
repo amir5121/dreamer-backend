@@ -12,6 +12,7 @@ class DreamerUserManager(UserManager):
     def create_user(self, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
+        extra_fields.pop("username", None)
         return super(DreamerUserManager, self).create_user(email, email, password, **extra_fields)
 
     def create_superuser(self, email, password=None, **extra_fields):
