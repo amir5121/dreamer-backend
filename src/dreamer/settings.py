@@ -127,8 +127,10 @@ STATIC_URL = "/backend_static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "backend_static")
 
 AUTHENTICATION_BACKENDS = (
-    "social_core.backends.google.GoogleOAuth2",
     "rest_framework_social_oauth2.backends.DjangoOAuth2",
+    "social_core.backends.google.GoogleOAuth2",
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
     "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -148,6 +150,19 @@ REST_FRAMEWORK = {
     },
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
 }
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',  # <--- enable this one
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
 
 FCM_DJANGO_SETTINGS = {
     # default: _('FCM Django')

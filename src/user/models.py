@@ -40,6 +40,11 @@ class User(AbstractUser):
 
     objects = DreamerUserManager()
 
+    def save(self, *args, **kwargs):
+        self.last_name = self.first_name + " " + self.last_name
+        self.first_name = ""
+        return super(User, self).save(*args, **kwargs)
+
     @property
     def get_full_name(self):
         full_name = super(User, self).get_full_name()
