@@ -175,6 +175,7 @@ OAUTH2_PROVIDER = {
     #     "write": "Write scope",
     # },
     # "CLIENT_ID_GENERATOR_CLASS": "oauth2_provider.generators.ClientIdGenerator",
+    # "CLIENT_ID_GENERATOR_CLASS": "oauth2_provider.generators.ClientIdGenerator",
     # "ACCESS_TOKEN_EXPIRE_SECONDS": 1,
 }
 

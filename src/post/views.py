@@ -83,12 +83,15 @@ class AnalyticsView(APIView):
 
     @staticmethod
     def get_main_quote():
-        return (
-            Post.objects.filter(post_type=Post.POST_TYPES.word_cloud)
-            .order_by("modified")
-            .last()
-            .text[0]
-        )
+        try:
+            return (
+                Post.objects.filter(post_type=Post.POST_TYPES.word_cloud)
+                .order_by("modified")
+                .last()
+                .text[0]
+            )
+        except AttributeError:
+            return ""
 
     def get_word_cloud(self):
         return (
