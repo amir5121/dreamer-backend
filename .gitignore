@@ -9,3 +9,7 @@ src/runner/dreamer_restart
 src/celerybeat-schedule
 src/media/configurations
 src/media/word-clouds
+/src/media/__sized__/avatars/
+/src/media/avatars/
+/src/media/temp/
+/src/media/voices/

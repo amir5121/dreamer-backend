@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from post.models import Post, Dream, Element, Feeling, FeelingDetail
 from user.serializers import UserMinimalSerializer
+from utils.serializers import SerializerFileMixin
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -65,7 +66,7 @@ class DreamReadSerializer(serializers.ModelSerializer):
         ]
 
 
-class DreamWriteSerializer(serializers.ModelSerializer):
+class DreamWriteSerializer(SerializerFileMixin, serializers.ModelSerializer):
     elements = ElementSerializer(many=True)
     feelings = FeelingSerializer(many=True)
 

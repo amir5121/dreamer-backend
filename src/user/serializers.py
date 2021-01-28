@@ -18,7 +18,6 @@ class UserSelfSerializer(SerializerFileMixin, serializers.ModelSerializer):
             "email",
             "identifier",
             "avatar",
-            "avatar_image",
             "full_name",
             "birth_date",
             "gender",
@@ -31,9 +30,14 @@ class UserSelfSerializer(SerializerFileMixin, serializers.ModelSerializer):
             "date_joined",
             "gender_display",
             "full_name",
-            "avatar_image",
             "identifier",
         ]
+
+    def to_representation(self, instance):
+        result = super(UserSelfSerializer, self).to_representation(instance)
+        if not bool(result['avatar']):
+            result['avatar'] = f"https://loremflickr.com/g/320/320/girl/?lock={instance.id}"
+        return result
 
 
 class UserMinimalSerializer(serializers.ModelSerializer):
@@ -41,5 +45,11 @@ class UserMinimalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["email", "username", "avatar_image", "full_name"]
+        fields = ["email", "username", "avatar", "full_name"]
         read_only_fields = fields.copy()
+
+    def to_representation(self, instance):
+        result = super(UserMinimalSerializer, self).to_representation(instance)
+        if not bool(result['avatar']):
+            result['avatar'] = f"https://loremflickr.com/g/320/320/girl/?lock={instance.id}"
+        return result

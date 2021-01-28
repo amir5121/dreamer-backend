@@ -28,6 +28,10 @@ class Post(TimeStampedModel, SoftDeletableModel):
         return len(self.text) > 1
 
 
+def voice_upload_path(instance: "Dream", filename: str):
+    return f'voices/{instance.user.identifier}/{filename}'
+
+
 class Dream(TimeStampedModel, SoftDeletableModel):
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
@@ -39,10 +43,10 @@ class Dream(TimeStampedModel, SoftDeletableModel):
     dream_clearance = models.PositiveSmallIntegerField(
         choices=constants.CLEARANCE, default=constants.NORMAL
     )
-    text = models.TextField()
+    text = models.TextField(null=True, blank=True)
     title = models.TextField()
     dream_date = models.DateTimeField()
-    voice = models.FileField(blank=True, null=True)
+    voice = models.FileField(upload_to=voice_upload_path, blank=True, null=True)
 
     class Meta:
         ordering = ["-created"]
@@ -71,13 +75,13 @@ class FeelingDetail(SoftDeletableModel):
         if self.detailed_type and self.parent_type not in self.detailed_type:
             raise ValidationError("Can't have mixed feeling..")
         if (
-            self.detailed_type is None
-            and self.__class__.objects.filter(
-                parent_type=self.parent_type, detailed_type__isnull=True
-            )
-            .exclude(id=self.id)
-            .count()
-            > 1
+                self.detailed_type is None
+                and self.__class__.objects.filter(
+            parent_type=self.parent_type, detailed_type__isnull=True
+        )
+                .exclude(id=self.id)
+                .count()
+                > 1
         ):
             raise ValidationError(f"Multiple parent for type {self.parent_type}")
 

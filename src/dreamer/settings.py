@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     "utils",
     "post",
     "fcm_django",
+    "versatileimagefield",
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

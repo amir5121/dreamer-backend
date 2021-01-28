@@ -51,8 +51,3 @@ class User(AbstractUser):
         if full_name:
             return full_name
         return "Dreamer"
-
-    @property
-    def avatar_image(self):
-        return self.avatar or f"https://loremflickr.com/g/320/320/girl/?lock={self.id}"
-        # return self.avatar or f"https://loremflickr.com/g/320/320/?lock={self.id}"
