@@ -1,4 +1,6 @@
+from pydub import AudioSegment
 from rest_framework import serializers
+from rest_framework.fields import empty
 
 from post.models import Post, Dream, Element, Feeling, FeelingDetail
 from user.serializers import UserMinimalSerializer
@@ -45,7 +47,11 @@ class DreamReadSerializer(serializers.ModelSerializer):
     user = UserMinimalSerializer()
     elements = ElementSerializer(many=True)
     feelings = FeelingSerializer(many=True)
-    dream_clearance_display = serializers.CharField(source='get_dream_clearance_display')
+    dream_clearance_display = serializers.CharField(
+        source="get_dream_clearance_display"
+    )
+    voice_duration = serializers.SerializerMethodField()
+    voice_wave = serializers.SerializerMethodField()
 
     class Meta:
         model = Dream
@@ -63,7 +69,35 @@ class DreamReadSerializer(serializers.ModelSerializer):
             "elements",
             "dream_clearance",
             "dream_clearance_display",
+            "voice_duration",
+            "voice_wave",
         ]
+
+    def __init__(self, instance=None, data=empty, **kwargs):
+        super().__init__(instance, data, **kwargs)
+        self.audio_segment = None
+
+    def get_audio_segment(self, instance):
+
+        if self.audio_segment is None:
+            self.audio_segment = AudioSegment.from_file(instance.voice.path)
+        return self.audio_segment
+
+    def get_voice_duration(self, instance: Dream):
+        if instance.voice:
+            return self.get_audio_segment(instance).duration_seconds * 1000
+        else:
+            return None
+
+    def get_voice_wave(self, instance: Dream):
+        if instance.voice:
+            return (
+                self.get_audio_segment(instance)
+                .set_frame_rate(frame_rate=10)
+                .get_array_of_samples()
+            )
+        else:
+            return None
 
 
 class DreamWriteSerializer(SerializerFileMixin, serializers.ModelSerializer):
@@ -90,10 +124,29 @@ class DreamWriteSerializer(SerializerFileMixin, serializers.ModelSerializer):
     def create(self, validated_data):
         feelings = validated_data.pop("feelings")
         elements = validated_data.pop("elements")
-        instance = super(DreamWriteSerializer, self).create(validated_data=validated_data)
+        instance = super(DreamWriteSerializer, self).create(
+            validated_data=validated_data
+        )
         for feeling in feelings:
             feeling.dream_id = instance.id
             Feeling.objects.create(dream_id=instance.id, **feeling)
         for element in elements:
             Element.objects.create(dream_id=instance.id, **element)
+        return instance
+
+    def update(self, instance, validated_data):
+        feelings = validated_data.pop("feelings")
+        elements = validated_data.pop("elements")
+        instance = super(DreamWriteSerializer, self).update(
+            instance=instance, validated_data=validated_data
+        )
+        if feelings:
+            Feeling.objects.filter(dream_id=instance.id).delete()
+            for feeling in feelings:
+                feeling.dream_id = instance.id
+                Feeling.objects.create(dream_id=instance.id, **feeling)
+        if elements:
+            Element.objects.filter(dream_id=instance.id).delete()
+            for element in elements:
+                Element.objects.create(dream_id=instance.id, **element)
         return instance
