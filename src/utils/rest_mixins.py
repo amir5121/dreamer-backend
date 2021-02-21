@@ -90,7 +90,7 @@ class DestroyModelMixin:
         instance = self.get_object()
         self.perform_destroy(instance)
 
-        return DreamerResponse(code=status.HTTP_204_NO_CONTENT, data={}, ).toJSONResponse()
+        return DreamerResponse(data={}, ).toJSONResponse()
 
     def perform_destroy(self, instance):
         instance.delete()

@@ -17,5 +17,6 @@ urlpatterns = [
     re_path("^api/(?P<version>(v1|v2))/configuration/", include("configuration.urls")),
     re_path("^api/(?P<version>(v1|v2))/user/", include("user.urls")),
     re_path("^api/(?P<version>(v1|v2))/post/", include("post.urls")),
+    re_path("^api/(?P<version>(v1|v2))/notification/", include("notification.urls")),
     re_path("^api/(?P<version>(v1|v2))/", include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
