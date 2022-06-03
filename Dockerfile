@@ -9,10 +9,25 @@ WORKDIR $PROJECT_PATH
 
 RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
 RUN apk add --no-cache \
-            postgresql-dev jpeg-dev libmagic libxslt-dev freetype-dev shadow lapack libstdc++ ffmpeg
+    postgresql-dev \
+    jpeg-dev \
+    libmagic \
+    libxslt-dev \
+    freetype-dev \
+    shadow \
+    lapack \
+    libstdc++ \
+    ffmpeg
 RUN apk add --no-cache --virtual .build-deps \
-                                 build-base libffi-dev zlib-dev libxml2 g++ gcc gfortran musl-dev lapack-dev
-
+    build-base \
+    libffi-dev \
+    zlib-dev \
+    libxml2 \
+    g++ \
+    gfortran \
+    linux-headers \
+    musl-dev \
+    lapack-dev
 ADD ./requirements.txt /srv/dreamer/requirements.txt
 
 RUN pip install --upgrade pip 
