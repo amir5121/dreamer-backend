@@ -3,6 +3,7 @@ version: "3.8"
 services:
   nginx:
     image: nginx:alpine
+    restart: always
     volumes:
       - ./nginx:/etc/nginx/templates
     ports:

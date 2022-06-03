@@ -1,0 +1,17 @@
+src/venv/
+*local_settings.py
+*.idea
+*__pycache__*
+*.pyc
+.env
+.nginx.env
+*uwsgi.log
+src/runner/logs/*
+src/runner/dreamer_restart
+src/celerybeat-schedule
+src/media/configurations
+src/media/word-clouds
+/src/media/__sized__/avatars/
+/src/media/avatars/
+/src/media/temp/
+/src/media/voices/
