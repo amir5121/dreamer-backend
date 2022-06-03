@@ -3,8 +3,8 @@ src/venv/
 *.idea
 *__pycache__*
 *.pyc
-envs/.env
-envs/.nginx.env
+.env
+.nginx.env
 *uwsgi.log
 src/runner/logs/*
 src/runner/dreamer_restart

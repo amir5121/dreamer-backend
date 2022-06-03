@@ -8,9 +8,8 @@ services:
     ports:
       - "8080:80"
     environment:
-      - UPSTREAM_HTTP=web_http
-    env_file:
-      - envs/.nginx.env
+      UPSTREAM_HTTP: web_http
+      UPSTREAM_PORT: 8486
 
   web_http:
     build: ${DREAMER_WEB_PATH}
@@ -21,19 +20,16 @@ services:
       - dreamer_backend_source:/srv/dreamer
       - dreamer_backend_static:/srv/dreamer/backend_static
       - dreamer_celery_logs:/var/log/celery
+    env_file:
+      - .env
     environment:
       DB_SERVICE: postgres
       REDIS_SERVICE: redis
-    env_file:
-      - envs/.env
-      - envs/.nginx.env
     networks:
       - dreamer-web
     depends_on:
       - postgres
       - redis
-    ports:
-      - 127.0.0.1:${UPSTREAM_PORT}:8486
     command: uwsgi --ini /srv/dreamer/runner/uwsgi.ini
 
   redis:
@@ -55,8 +51,7 @@ services:
     networks:
       - dreamer-web
     env_file:
-      - envs/.env
-      - envs/.nginx.env
+      - .env
 
   rabbitmq:
     image: rabbitmq:3.8-alpine
