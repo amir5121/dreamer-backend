@@ -1,4 +1,4 @@
-Django
+Django<4
 djoser
 psycopg2
 requests
@@ -11,8 +11,9 @@ django-model-utils
 django-better-admin-arrayfield
 django-filter
 Pillow
+whitenoise
 django-versatileimagefield
-python-magic==0.4.18
+python-magic
 wordcloud
 arabic_reshaper
 python-bidi

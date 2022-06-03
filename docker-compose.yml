@@ -1,6 +1,47 @@
 version: "3.8"
 
 services:
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx:/etc/nginx/templates
+    ports:
+      - "8080:80"
+    environment:
+      - UPSTREAM_HTTP=web_http
+    env_file:
+      - envs/.nginx.env
+
+  web_http:
+    build: ${DREAMER_WEB_PATH}
+    restart: always
+    image: dreamer/backend
+    user: dreamer
+    volumes:
+      - dreamer_backend_source:/srv/dreamer
+      - dreamer_backend_static:/srv/dreamer/backend_static
+      - dreamer_celery_logs:/var/log/celery
+    environment:
+      DB_SERVICE: postgres
+      REDIS_SERVICE: redis
+    env_file:
+      - envs/.env
+      - envs/.nginx.env
+    networks:
+      - dreamer-web
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - 127.0.0.1:${UPSTREAM_PORT}:8486
+    command: uwsgi --ini /srv/dreamer/runner/uwsgi.ini
+
+  redis:
+    image: redis:5.0-alpine
+    restart: always
+    networks:
+      - dreamer-web
+
   postgres:
     build: ${POSTGRES_DOCKER_PATH}
     restart: always
@@ -14,86 +55,14 @@ services:
     networks:
       - dreamer-web
     env_file:
-      - .env
+      - envs/.env
+      - envs/.nginx.env
 
   rabbitmq:
     image: rabbitmq:3.8-alpine
     restart: always
     networks:
       - dreamer-web
-
-  web_http:
-    build: ${DREAMER_WEB_PATH}
-    restart: always
-    image: dreamer/backend
-    user: dreamer
-    volumes:
-      - dreamer_backend_source:/srv/dreamer
-      - dreamer_backend_static:/srv/dreamer/backend_static
-    environment:
-      DB_SERVICE: postgres
-      REDIS_SERVICE: redis
-    env_file:
-      - .env
-    networks:
-      - dreamer-web
-    depends_on:
-      - postgres
-      - redis
-    ports:
-      - 127.0.0.1:${WEB_HTTP_PUBLISH_PORT}:8486
-    command: uwsgi --ini /srv/dreamer/runner/uwsgi.ini
-
-  redis:
-    image: redis:5.0-alpine
-    restart: always
-    networks:
-      - dreamer-web
-
-  celery_worker:
-    build: ${DREAMER_WEB_PATH}
-    restart: always
-    image: dreamer/backend
-    user: dreamer
-    volumes:
-      - dreamer_backend_source:/srv/dreamer
-      - dreamer_backend_static:/srv/dreamer/backend_static
-      - dreamer_celery_logs:/var/log/celery
-    environment:
-      DB_SERVICE: postgres
-      REDIS_SERVICE: redis
-    env_file:
-      - .env
-    networks:
-      - dreamer-web
-    depends_on:
-      - postgres
-      - redis
-      - rabbitmq
-
-    command: ["sh", "runner/celery_run.sh"]
-
-  celery_beat:
-    build: ${DREAMER_WEB_PATH}
-    restart: always
-    image: dreamer/backend
-    user: dreamer
-    volumes:
-      - dreamer_backend_source:/srv/dreamer
-      - dreamer_backend_static:/srv/dreamer/backend_static
-      - dreamer_celery_logs:/var/log/celery
-    environment:
-      DB_SERVICE: postgres
-      REDIS_SERVICE: redis
-    env_file:
-      - .env
-    networks:
-      - dreamer-web
-    depends_on:
-      - postgres
-      - redis
-      - rabbitmq
-    command: ["sh", "runner/celery_beat_run.sh"]
 
 networks:
   dreamer-web:

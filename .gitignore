@@ -2,7 +2,9 @@ src/venv/
 *local_settings.py
 *.idea
 *__pycache__*
-.env
+*.pyc
+envs/.env
+envs/.nginx.env
 *uwsgi.log
 src/runner/logs/*
 src/runner/dreamer_restart
