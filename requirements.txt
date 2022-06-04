@@ -13,6 +13,7 @@ django-filter
 Pillow
 whitenoise
 django-versatileimagefield
+boto3
 python-magic
 wordcloud
 arabic_reshaper

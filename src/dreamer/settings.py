@@ -11,9 +11,9 @@ SECRET_KEY = os.environ.get(
     "SECRET_KEY", "n=4_&rx%3c(0x=z@)wct45g72_-oo02jt!-&!i1#_ypjt&_q+z"
 )
 
-SERVER_ENVIRONMENT = os.environ.get("SERVER_ENVIRONMENT", "LOCAL")
-IS_PRODUCTION = SERVER_ENVIRONMENT == "PRODUCTION"
-IS_LOCAL = SERVER_ENVIRONMENT == "LOCAL"
+SERVER_ENVIRONMENT = os.environ.get("SERVER_ENVIRONMENT", "local").lower()
+IS_PRODUCTION = SERVER_ENVIRONMENT == "production"
+IS_LOCAL = SERVER_ENVIRONMENT == "local"
 
 DEBUG = os.environ.get("DJANGO_DEBUG", str(IS_LOCAL)).lower() == "true"
 
@@ -182,6 +182,15 @@ CACHE_DEFAULT_TIME_OUT = 3600
 CACHE_ENABLED = True
 
 AUTH_USER_MODEL = "user.User"
+
+
+if not IS_LOCAL:
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "")
+    AWS_S3_ENDPOINT_URL = os.getenv("AWS_S3_ENDPOINT_URL", "")
+
 
 if os.environ.get("IN_DOCKER"):
     DATABASES = {
