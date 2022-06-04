@@ -12,9 +12,11 @@ services:
     environment:
       UPSTREAM_HTTP: web_http
       UPSTREAM_PORT: 8486
+    networks:
+      - dreamer-web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dreamer.rule=Host(`dreamer.local`)"
+      - "traefik.http.routers.dreamer.rule=Host(`dreamer.${DOMAIN}`)"
 
   web_http:
     build: ${DREAMER_WEB_PATH}
