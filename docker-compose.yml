@@ -14,9 +14,11 @@ services:
       UPSTREAM_PORT: 8486
     networks:
       - dreamer-web
+      - traefik-public
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dreamer.rule=Host(`dreamer.${DOMAIN}`)"
+      - "traefik.docker.network=traefik-public"
 
   web_http:
     build: ${DREAMER_WEB_PATH}
@@ -70,6 +72,8 @@ networks:
   dreamer-web:
     name: ${NETWORK_PREFIX}-dreamer-web
     driver: bridge
+  traefik-public:
+    external: true
 
 volumes:
   dreamer_backend_source:
