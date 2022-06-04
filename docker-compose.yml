@@ -7,6 +7,7 @@ services:
     container_name: "dreamer-nginx"
     volumes:
       - ./nginx:/etc/nginx/templates
+      - dreamer_backend_static:/srv/dreamer/backend_static:ro
     expose:
       - "80"
     environment:
@@ -15,6 +16,7 @@ services:
     networks:
       - dreamer-web
       - traefik-public
+
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dreamer.rule=Host(`dreamer.${DOMAIN}`)"
