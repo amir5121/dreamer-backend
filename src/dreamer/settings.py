@@ -77,6 +77,60 @@ TEMPLATES = [
         },
     },
 ]
+if IS_PRODUCTION:
+    LOG_ROOT = os.path.join(os.sep, "var", "log", "dreamer", "application")
+else:
+    LOG_ROOT = os.path.join(BASE_DIR, "logs")
+
+DEFAULT_LOGGING_HANDLER = {
+    "level": "DEBUG",
+    "class": "logging.handlers.RotatingFileHandler",
+    "maxBytes": 1024 * 1024 * 256,  # 256MB
+    "backupCount": 4,
+    "formatter": "standard",
+}
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "formatters": {
+        "standard": {"format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+        },
+        "error_file_handler": {
+            **DEFAULT_LOGGING_HANDLER,
+            "filename": os.path.join(LOG_ROOT, "error.log"),
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "django.server": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "django": {
+            "handlers": ["error_file_handler", "console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}
+
 
 WSGI_APPLICATION = "dreamer.wsgi.application"
 
