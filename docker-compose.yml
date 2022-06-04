@@ -14,7 +14,7 @@ services:
       UPSTREAM_PORT: 8486
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dreamer.rule=Host(`dreamer.localhost`)"
+      - "traefik.http.routers.dreamer.rule=Host(`dreamer.local`)"
 
   web_http:
     build: ${DREAMER_WEB_PATH}
