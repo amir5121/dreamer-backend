@@ -4,6 +4,7 @@ upstream http_upstream {
 }
 
 server {
+    listen 80 default_server;
     charset utf-8;
     client_max_body_size 75M;
     large_client_header_buffers 16 10m;
@@ -38,5 +39,4 @@ server {
         proxy_redirect off;
         proxy_read_timeout 240s;
     }
-    listen 80 default;
 }
