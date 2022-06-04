@@ -7,7 +7,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx/templates
     ports:
-      - "8080:80"
+      - "8100:80"
     environment:
       UPSTREAM_HTTP: web_http
       UPSTREAM_PORT: 8486
