@@ -4,13 +4,16 @@ services:
   nginx:
     image: nginx:alpine
     restart: always
+    container_name: "dreamer-nginx"
     volumes:
       - ./nginx:/etc/nginx/templates
-    ports:
-      - "8100:80"
+    expose:
+      - "80"
     environment:
       UPSTREAM_HTTP: web_http
       UPSTREAM_PORT: 8486
+    labels:
+      - "traefik.enable=true"
 
   web_http:
     build: ${DREAMER_WEB_PATH}
