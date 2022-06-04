@@ -14,6 +14,7 @@ Pillow
 whitenoise
 django-versatileimagefield
 boto3
+django-storages
 python-magic
 wordcloud
 arabic_reshaper
