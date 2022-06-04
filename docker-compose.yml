@@ -20,7 +20,7 @@ services:
     volumes:
       - dreamer_backend_source:/srv/dreamer
       - dreamer_backend_static:/srv/dreamer/backend_static
-      - dreamer_celery_logs:/var/log/celery
+      - dreamer_logs:/var/log/dreamer
     env_file:
       - .env
     environment:
@@ -90,10 +90,10 @@ volumes:
       device: ${POSTGRES_DATA}
       o: bind
 
-  dreamer_celery_logs:
-    name: dreamer_celery_logs
+  dreamer_logs:
+    name: dreamer_logs
     driver: local
     driver_opts:
       type: non
-      device: ${CELERY_LOG_PATH}
+      device: ${LOG_PATH}
       o: bind

@@ -55,11 +55,7 @@ RUN adduser -s /bin/sh -D dreamer
 RUN usermod -u 1000 dreamer
 RUN groupmod -g 1000 dreamer
 
-RUN mkdir /var/log/celery
-RUN mkdir /var/run/celery
-
-RUN chown -R dreamer:dreamer /var/log/celery
-RUN chown -R dreamer:dreamer /var/run/celery
-RUN chown -R dreamer:dreamer $PROJECT_PATH
+RUN mkdir -p /var/log/dreamer/celery /var/log/dreamer/uwsgi /var/run/celery
+RUN chown -R dreamer:dreamer /var/log/dreamer /var/run/celery $PROJECT_PATH
 
 USER dreamer
