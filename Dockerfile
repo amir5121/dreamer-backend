@@ -18,16 +18,18 @@ RUN apk add --no-cache \
     lapack \
     libstdc++ \
     ffmpeg
+
 RUN apk add --no-cache --virtual .build-deps \
     build-base \
     libffi-dev \
     zlib-dev \
     libxml2 \
     g++ \
+    gcc \
     gfortran \
-    linux-headers \
     musl-dev \
     lapack-dev
+
 ADD ./requirements.txt /srv/dreamer/requirements.txt
 
 RUN pip install --upgrade pip 
