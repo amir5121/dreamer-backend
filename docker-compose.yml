@@ -8,6 +8,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx/templates
       - dreamer_backend_static:/srv/dreamer/backend_static:ro
+      - dreamer_backend_media:/srv/dreamer/media:ro
     expose:
       - "80"
     environment:
@@ -84,6 +85,14 @@ volumes:
     driver_opts:
       type: non
       device: ${DREAMER_WEB_PATH}/src
+      o: bind
+
+  dreamer_backend_media:
+    name: dreamer_backend_media
+    driver: local
+    driver_opts:
+      type: non
+      device: ${DREAMER_WEB_PATH}/src/media
       o: bind
 
   dreamer_backend_static:

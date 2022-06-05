@@ -11,6 +11,9 @@ server {
     location /backend_static/ {
         alias /srv/dreamer/backend_static/;
     }
+    location /media/ {
+        alias /srv/dreamer/media/;
+    }
 
     location  / {
         proxy_set_header X-Forwarded-Proto $scheme;
