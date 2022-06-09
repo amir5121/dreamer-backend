@@ -26,6 +26,10 @@ def _get_frequency_dict_for_text(sentence):
 def clean_text(sentence):
     sentence = sentence.upper().replace("\n", "").replace(".", "")
     for i in [
+        "der",
+        "die",
+        "das",
+        "ich",
         "the",
         "of",
         "and",
